@@ -4,11 +4,10 @@ import './App.css';
 import axios from 'axios'
 
 
-function getCourseGrades() {
-  const quiz_url = `http://127.0.0.1:8000/sessions`
-  axios.get(quiz_url).then(response => {
+function getSessionsData() {
+  const sessions_url = `http://127.0.0.1:8000/sessions`
+  axios.get(sessions_url).then(response => {
     if (response.status === 200) {
-      // this.getResult(response.data[0].id)
       console.log(response.data);
       return response.data[0]
     }
@@ -21,7 +20,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          {getCourseGrades()}
+          {getSessionsData()}
         </p>
         <a
           className="App-link"
