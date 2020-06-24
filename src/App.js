@@ -14,15 +14,14 @@ class App extends React.Component {
         let listOfSessionRows = []
         axios
             .get("http://127.0.0.1:8000/sessions")
-            .then (response => {
+            .then(response => {
                 response.data.forEach(dataRow => {
                     listOfSessionRows.push(<SessionRow name={dataRow.name}
                                                        date={dataRow.distillation_date}
                                                        is_finished={dataRow.is_finished}/>);
                 })
+                this.setState({sessionBox: listOfSessionRows});
             })
-        console.log(listOfSessionRows)
-        this.setState({sessionBox: listOfSessionRows});
     }
 
     render() {
