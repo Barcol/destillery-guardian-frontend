@@ -8,17 +8,21 @@ class App extends React.Component {
     state = {
         sessionBox: "",
     }
+    distillation_date;
 
     componentDidMount() {
+        let listOfSessionRows = []
         axios
             .get("http://127.0.0.1:8000/sessions")
-            .then(function (response) {
+            .then (response => {
                 response.data.forEach(dataRow => {
-                    this.sessionBox.append(<SessionRow name={dataRow.name}
-                                                       date={dataRow.date}
+                    listOfSessionRows.push(<SessionRow name={dataRow.name}
+                                                       date={dataRow.distillation_date}
                                                        is_finished={dataRow.is_finished}/>);
                 })
             })
+        console.log(listOfSessionRows)
+        this.setState({sessionBox: listOfSessionRows});
     }
 
     render() {
