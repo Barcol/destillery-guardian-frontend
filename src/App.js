@@ -15,8 +15,10 @@ class App extends React.Component {
         axios
             .get("http://127.0.0.1:8000/sessions")
             .then(response => {
-                response.data.forEach(dataRow => {
-                    listOfSessionRows.push(<SessionRow name={dataRow.name}
+                let sessionSet = response.data.sort((a, b) => (a.id < b.id) ? 1 : -1)
+                sessionSet.forEach(dataRow => {
+                    listOfSessionRows.push(<SessionRow key={dataRow.id}
+                                                       name={dataRow.name}
                                                        date={dataRow.distillation_date}
                                                        is_finished={dataRow.is_finished}/>);
                 })
@@ -26,14 +28,20 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <p>
-                        {this.state.sessionBox}
-                    </p>
-
-                </header>
+            <div className="container">
+                <div className="app">
+                    <div className="App-header">
+                        <img src={logo} className="App-logo" alt="logo"/>
+                        <table className={"table table-dark"}>
+                            <tr className="Session-row">
+                                <th>Nazwa</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                            </tr>
+                            {this.state.sessionBox}
+                        </table>
+                    </div>
+                </div>
             </div>
         );
     }

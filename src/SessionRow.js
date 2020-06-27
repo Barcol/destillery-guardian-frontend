@@ -6,17 +6,17 @@ class SessionRow extends React.Component {
 
     render() {
         return (
-            <div className="SessionRow">
-                <p>
+            <tr className="Session-row">
+                <th>
                     {this.props.name}
-                </p>
-                <p>
+                </th>
+                <th>
                     {this.props.date}
-                </p>
-                <p>
-                    {this.props.is_finished}
-                </p>
-            </div>
+                </th>
+                <th className={"btn " + (this.props.is_finished ? "btn-primary" : "btn-success")}>
+                    {this.props.is_finished ? "Zakończono" : "Trwa"}
+                </th>
+            </tr>
         );
     }
 }
