@@ -11,17 +11,18 @@ class App extends React.Component {
     distillation_date;
 
     componentDidMount() {
-        let listOfSessionRows = []
         axios
             .get("http://127.0.0.1:8000/sessions")
             .then(response => {
-                let sessionSet = response.data.sort((a, b) => (a.id < b.id) ? 1 : -1)
-                sessionSet.forEach(dataRow => {
-                    listOfSessionRows.push(<SessionRow key={dataRow.id}
-                                                       name={dataRow.name}
-                                                       date={dataRow.distillation_date}
-                                                       is_finished={dataRow.is_finished}/>);
-                })
+                let listOfSessionRows = response.data
+                    .sort((a, b) => (a.id < b.id) ? 1 : -1)
+                    .map(dataRow =>
+                        <SessionRow key={dataRow.id}
+                                    id={dataRow.id}
+                                    name={dataRow.name}
+                                    date={dataRow.distillation_date}
+                                    is_finished={dataRow.is_finished}
+                                    loadSessionFunction={this.props.loadSessionFunction}/>)
                 this.setState({sessionBox: listOfSessionRows});
             })
     }

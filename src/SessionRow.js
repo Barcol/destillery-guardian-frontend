@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Session from "./Session";
 
 class SessionRow extends React.Component {
     is_finished;
@@ -13,7 +14,8 @@ class SessionRow extends React.Component {
                 <th>
                     {this.props.date}
                 </th>
-                <th className={"btn " + (this.props.is_finished ? "btn-primary" : "btn-success")}>
+                <th className={"btn " + (this.props.is_finished ? "btn-primary" : "btn-success")}
+                    onClick={() => this.props.loadSessionFunction(this.props.id)}>
                     {this.props.is_finished ? "Zakończono" : "Trwa"}
                 </th>
             </tr>
