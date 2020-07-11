@@ -14,7 +14,16 @@ class ResultRow extends React.Component {
                     {this.props.date}
                 </th>
                 <th>
-                    {this.props.temperature}
+                    {this.props.temperature_mash}
+                </th>
+                <th>
+                    {this.props.temperature_steam}
+                </th>
+                <th>
+                    {this.props.mass_obtained}
+                </th>
+                <th>
+                    {this.props.heating_power}
                 </th>
             </tr>
         );

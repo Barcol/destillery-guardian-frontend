@@ -6,7 +6,7 @@ import SessionRow from './SessionRow';
 
 class App extends React.Component {
     state = {
-        sessionBox: "",
+        sessionBox: null,
     }
     distillation_date;
 
