@@ -1,21 +1,34 @@
 import React from 'react';
 import App from "./App";
 import Session from "./Session";
+import NewSessionForm from "./NewSessionForm";
 
 class Main extends React.Component {
     state = {
-        renderSessionId: null
+        renderSessionId: {name: "app", key: null}
     }
 
     render() {
-        return (
-            <>
-                {this.state.renderSessionId
-                    ? <Session id={this.state.renderSessionId}
-                               loadSessionFunction={(key) => this.setState({renderSessionId: key})}/>
-                    : <App loadSessionFunction={(key) => this.setState({renderSessionId: key})}/>}
-            </>
-        )
+        if (this.state.renderSessionId.name === "session") {
+            return (
+                <>
+                    {<Session id={this.state.renderSessionId.key}
+                              loadSessionFunction={(key) => this.setState({renderSessionId: key})}/>}
+                </>
+            )
+        } else if (this.state.renderSessionId.name === "app") {
+            return (
+                <>
+                    {<App loadSessionFunction={(key) => this.setState({renderSessionId: key})}/>}
+                </>
+            )
+        } else if (this.state.renderSessionId.name === "new_session") {
+            return (
+                <>
+                    {<NewSessionForm loadSessionFunction={(key) => this.setState({renderSessionId: key})}/>}
+                </>
+            )
+        }
     }
 }
 

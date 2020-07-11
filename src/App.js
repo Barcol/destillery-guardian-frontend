@@ -33,16 +33,20 @@ class App extends React.Component {
                 <div className="app">
                     <div className="App-header">
                         <img src={logo} className="btn App-logo" alt="logo"/>
+                        <button className={"btn btn-secondary"}
+                                onClick={() => this.props.loadSessionFunction({name: "new_session", key: null})}>
+                            Rozpocznij nową sesję
+                        </button>
                         <table className={"table table-dark"}>
                             <thead>
-                                <tr className="Session-row">
-                                    <th>Nazwa</th>
-                                    <th>Data</th>
-                                    <th>Status</th>
-                                </tr>
+                            <tr className="Session-row">
+                                <th>Nazwa</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                {this.state.sessionBox}
+                            {this.state.sessionBox}
                             </tbody>
                         </table>
                     </div>

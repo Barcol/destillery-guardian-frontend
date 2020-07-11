@@ -2,16 +2,16 @@ import React from 'react';
 import './App.css';
 
 class ResultRow extends React.Component {
-    temperature;
 
     render() {
+        let eventDate = new Date(this.props.date)
         return (
             <tr className="Session-row">
                 <th>
                     {this.props.id}
                 </th>
                 <th>
-                    {this.props.date}
+                    {eventDate.toLocaleTimeString('pl-PL')}
                 </th>
                 <th>
                     {this.props.temperature_mash}

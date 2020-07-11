@@ -36,6 +36,7 @@ class ResultPlot extends React.Component {
     render() {
         return (
             <Plot
+                className={"w-100"}
                 data={[
                     {
                         name: "Temp. nastawu",
@@ -64,8 +65,7 @@ class ResultPlot extends React.Component {
                 ]}
 
                 layout={{
-                    width: 800,
-                    height: 320,
+                    autosize: true,
                     title: 'Wykres wyników pomiarowych',
                     xaxis: {tickangle: 30, autorange: 'reversed'},
                     plot_bgcolor: '#282c34',

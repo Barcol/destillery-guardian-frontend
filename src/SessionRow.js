@@ -14,7 +14,7 @@ class SessionRow extends React.Component {
                     {this.props.date}
                 </th>
                 <th className={"btn " + (this.props.is_finished ? "btn-primary" : "btn-success")}
-                    onClick={() => this.props.loadSessionFunction(this.props.id)}>
+                    onClick={() => this.props.loadSessionFunction({name: "session", key: this.props.id})}>
                     {this.props.is_finished ? "Zakończono" : "Trwa"}
                 </th>
             </tr>
