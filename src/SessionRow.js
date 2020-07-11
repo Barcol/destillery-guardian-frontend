@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Session from "./Session";
 
 class SessionRow extends React.Component {
     is_finished;

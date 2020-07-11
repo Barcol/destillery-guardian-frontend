@@ -33,14 +33,19 @@ class Session extends React.Component {
             <div className="container">
                 <div className="app">
                     <div className="App-header">
-                        <img src={logo} className="App-logo" alt="logo"/>
+                        <img src={logo} className="App-logo" alt="logo"
+                             onClick={() => this.props.loadSessionFunction(null)}/>
                         <table className={"table table-dark"}>
+                            <thead>
                             <tr className="Session-row">
                                 <th>ID</th>
                                 <th>Data</th>
                                 <th>Temperatura</th>
                             </tr>
+                            </thead>
+                            <tbody>
                             {this.state.resultBox}
+                            </tbody>
                         </table>
                     </div>
                 </div>

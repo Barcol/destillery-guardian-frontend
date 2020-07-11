@@ -32,14 +32,18 @@ class App extends React.Component {
             <div className="container">
                 <div className="app">
                     <div className="App-header">
-                        <img src={logo} className="App-logo" alt="logo"/>
+                        <img src={logo} className="btn App-logo" alt="logo"/>
                         <table className={"table table-dark"}>
-                            <tr className="Session-row">
-                                <th>Nazwa</th>
-                                <th>Data</th>
-                                <th>Status</th>
-                            </tr>
-                            {this.state.sessionBox}
+                            <thead>
+                                <tr className="Session-row">
+                                    <th>Nazwa</th>
+                                    <th>Data</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.sessionBox}
+                            </tbody>
                         </table>
                     </div>
                 </div>

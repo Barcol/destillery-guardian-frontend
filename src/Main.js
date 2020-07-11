@@ -11,7 +11,8 @@ class Main extends React.Component {
         return (
             <>
                 {this.state.renderSessionId
-                    ? <Session id={this.state.renderSessionId}/>
+                    ? <Session id={this.state.renderSessionId}
+                               loadSessionFunction={(key) => this.setState({renderSessionId: key})}/>
                     : <App loadSessionFunction={(key) => this.setState({renderSessionId: key})}/>}
             </>
         )
