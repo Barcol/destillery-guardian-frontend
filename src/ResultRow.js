@@ -17,7 +17,9 @@ class ResultRow extends React.Component {
                     {this.props.temperature_mash}
                 </th>
                 <th>
+                    <div className={this.props.temperature_steam < 74 ? "badge badge-danger" : this.props.temperature_steam > 82 ? "badge badge-warning" : "badge badge-success"}>
                     {this.props.temperature_steam}
+                    </div>
                 </th>
                 <th>
                     {this.props.mass_obtained}

@@ -10,10 +10,22 @@ class Session extends React.Component {
     state = {
         resultBox: null,
         resultPlot: null,
-        buttonDownloadCSV: null
+        buttonDownloadCSV: null,
+        is_finished: true,
+        name: '',
+        status_explanation: null,
+        time_interval: 30,
     }
     distillation_date;
     created_at;
+
+    endSession() {
+        axios
+            .put(`http://127.0.0.1:8000/sessions/${this.props.id}/finish`)
+            .then(response => {
+                this.props.loadSessionFunction({name: "app", key: null})
+            })
+    }
 
     componentDidMount() {
         axios
@@ -27,8 +39,6 @@ class Session extends React.Component {
                     dataRow.heating_power,
                     dataRow.mass_obtained,
                     dataRow.temperature_mash]))
-                console.log(this.state.buttonDownloadCSV)
-                console.table(this.state.buttonDownloadCSV)
                 let listOfResultRows = sessionSet.map(dataRow =>
                     <ResultRow key={dataRow.id}
                                id={dataRow.id}
@@ -43,6 +53,24 @@ class Session extends React.Component {
                     resultPlot: <ResultPlot dataSet={sessionSet}/>
                 })
             })
+        axios
+            .get(`http://127.0.0.1:8000/sessions/${this.props.id}`)
+            .then(response => {
+                let name = response.data.name
+                let is_finished = response.data.is_finished
+                let status_explanation = response.data.status_explanation
+                let time_interval = response.data.time_interval
+                if (is_finished) {
+                    status_explanation = response.data.status_explanation
+                }
+                this.setState({
+                    name: name,
+                    is_finished: is_finished,
+                    status_explanation: status_explanation,
+                    time_interval: time_interval,
+                })
+                console.table(this.state)
+            })
     }
 
     render() {
@@ -50,8 +78,36 @@ class Session extends React.Component {
             <div className="container">
                 <div className="app">
                     <div className="App-header">
-                        <img src={logo} className="App-logo" alt="logo"
-                             onClick={() => this.props.loadSessionFunction({name: "app", key: null})}/>
+                        <div className={"row Logo-bar"}>
+                            <div className={"col-lg-3"}>
+                                <img src={logo} className="App-logo" alt="logo"
+                                     onClick={() => this.props.loadSessionFunction({name: "app", key: null})}/>
+                            </div>
+                            <div className={"col-lg-6 h5"}>
+                                <span>
+                                    Nazwa sesji:<br/>
+                                    <strong>{this.state.name}</strong>
+                                </span><br/>
+                                <span>
+                                    Status sesji:<br/>
+                                    <strong>
+                                        {this.state.is_finished ? "Skończona" : "Trwająca"}
+                                    </strong>
+                                </span>
+                                <span><strong>{this.state.status_explanation}</strong></span>
+                            </div>
+                            <div className={"col-lg-3"}>
+                                {this.state.is_finished ? null :
+                                    <>
+                                        <button className={"btn btn-danger"} onClick={() => {
+                                            if (window.confirm('Jesteś pewien?')) this.endSession()
+                                        }}>
+                                            Zakończ
+                                        </button>
+                                    </>
+                                }
+                            </div>
+                        </div>
                         <div className={"w-100"}>
                             {this.state.resultPlot}
                         </div>
@@ -60,10 +116,10 @@ class Session extends React.Component {
                             <tr className="Session-row">
                                 <th>ID</th>
                                 <th>Godzina</th>
-                                <th>Temperatura nastawu</th>
-                                <th>Temperatura par</th>
-                                <th>Masa produktu</th>
-                                <th>Moc grzałki</th>
+                                <th>Temperatura nastawu [°C]</th>
+                                <th>Temperatura par [°C]</th>
+                                <th>Masa produktu [g]</th>
+                                <th>Moc grzałki [W]</th>
                             </tr>
                             </thead>
                             <tbody>

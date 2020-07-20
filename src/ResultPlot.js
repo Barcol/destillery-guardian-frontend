@@ -54,12 +54,14 @@ class ResultPlot extends React.Component {
                         name: "Moc grzałki",
                         x: this.state.dateTime,
                         y: this.state.heating_power,
+                        yaxis: 'y2',
                         type: 'scatter',
                     },
                     {
                         name: "Masa uzysku",
                         x: this.state.dateTime,
                         y: this.state.mass_obtained,
+                        yaxis: 'y3',
                         type: 'scatter',
                     },
                 ]}
@@ -67,13 +69,32 @@ class ResultPlot extends React.Component {
                 layout={{
                     autosize: true,
                     title: 'Wykres wyników pomiarowych',
-                    xaxis: {tickangle: 30, autorange: 'reversed'},
+                    xaxis: {tickangle: 30, autorange: 'reversed', domain: [0.0, 0.8]},
                     plot_bgcolor: '#282c34',
                     paper_bgcolor: '#282c34',
-
-                        font: {
-                            color: 'white'
-                        }
+                    font: {
+                        color: 'white'
+                    },
+                    yaxis: {
+                        title: '[°C]',
+                        tickfont: {color: '#ff7f0e'},
+                        titlefont: {color: '#1F77B4'},
+                    },
+                    yaxis2: {
+                        title: '[W]',
+                        overlaying: 'y',
+                        side: 'right',
+                        tickfont: {color: '#2CA02C'},
+                        titlefont: {color: '#2CA02C'},
+                    },
+                    yaxis3: {
+                        title: '[g]',
+                        side: 'right',
+                        overlaying: 'y',
+                        position: 0.9,
+                        tickfont: {color: '#D62728'},
+                        titlefont: {color: '#D62728'},
+                    },
                 }}
             />
         );

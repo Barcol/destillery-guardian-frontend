@@ -9,6 +9,11 @@
 
 .App-logo {
   height: 20vmin;
+  horiz-align: left;
+}
+
+.Logo-bar{
+  width: 60%;
 }
 
 .Session-row {
