@@ -27,7 +27,7 @@ class Session extends React.Component {
             })
     }
 
-    componentDidMount() {
+    retrievePlotData() {
         axios
             .get(`http://127.0.0.1:8000/sessions/${this.props.id}/results`)
             .then(response => {
@@ -50,9 +50,13 @@ class Session extends React.Component {
                 this.setState({
                     resultBox: listOfResultRows,
                     buttonDownloadCSV: <CSVLink className={"btn btn-secondary"} data={csvData}>Pobierz CSV</CSVLink>,
-                    resultPlot: <ResultPlot dataSet={sessionSet}/>
+                    resultPlot: <ResultPlot dataSet={sessionSet} revision={sessionSet.length}/>
                 })
             })
+    }
+
+    componentDidMount() {
+        this.retrievePlotData()
         axios
             .get(`http://127.0.0.1:8000/sessions/${this.props.id}`)
             .then(response => {
@@ -63,13 +67,16 @@ class Session extends React.Component {
                 if (is_finished) {
                     status_explanation = response.data.status_explanation
                 }
+                setInterval(() => {
+                    console.log("Refreshing component!")
+                    this.retrievePlotData()
+                }, response.data.time_interval*1000);
                 this.setState({
                     name: name,
                     is_finished: is_finished,
                     status_explanation: status_explanation,
                     time_interval: time_interval,
                 })
-                console.table(this.state)
             })
     }
 

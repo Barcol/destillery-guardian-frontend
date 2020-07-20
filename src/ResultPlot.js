@@ -5,14 +5,7 @@ import createPlotlyComponent from 'react-plotly.js/factory';
 const Plot = createPlotlyComponent(Plotly);
 
 class ResultPlot extends React.Component {
-    state = {
-        temperature_steam: null,
-        heating_power: null,
-        mass_obtained: null,
-        temperature_mash: null,
-    }
-
-    componentDidMount() {
+    render() {
         let temperature_steam = []
         let heating_power = []
         let mass_obtained = []
@@ -26,47 +19,40 @@ class ResultPlot extends React.Component {
             let eventDate = new Date(dataRow.created_at)
             dateTime.push(eventDate.toLocaleTimeString('pl-PL'))
         })
-        this.setState({temperature_steam: temperature_steam})
-        this.setState({heating_power: heating_power})
-        this.setState({mass_obtained: mass_obtained})
-        this.setState({temperature_mash: temperature_mash})
-        this.setState({dateTime: dateTime})
-    }
-
-    render() {
         return (
             <Plot
                 className={"w-100"}
                 data={[
                     {
                         name: "Temp. nastawu",
-                        x: this.state.dateTime,
-                        y: this.state.temperature_mash,
+                        x: dateTime,
+                        y: temperature_mash,
                         type: 'scatter',
                     },
                     {
                         name: "Temp. par",
-                        x: this.state.dateTime,
-                        y: this.state.temperature_steam,
+                        x: dateTime,
+                        y: temperature_steam,
                         type: 'scatter',
                     },
                     {
                         name: "Moc grzałki",
-                        x: this.state.dateTime,
-                        y: this.state.heating_power,
+                        x: dateTime,
+                        y: heating_power,
                         yaxis: 'y2',
                         type: 'scatter',
                     },
                     {
                         name: "Masa uzysku",
-                        x: this.state.dateTime,
-                        y: this.state.mass_obtained,
+                        x: dateTime,
+                        y: mass_obtained,
                         yaxis: 'y3',
                         type: 'scatter',
                     },
                 ]}
 
                 layout={{
+                    datarevision: this.props.revision,
                     autosize: true,
                     title: 'Wykres wyników pomiarowych',
                     xaxis: {tickangle: 30, autorange: 'reversed', domain: [0.0, 0.8]},
