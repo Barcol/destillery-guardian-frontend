@@ -21,7 +21,8 @@ class Session extends React.Component {
 
     endSession() {
         axios
-            .put(`http://127.0.0.1:8000/sessions/${this.props.id}/finish`)
+            .put(`http://127.0.0.1:8000/sessions/${this.props.id}/finish`,
+                {"termination_reason": "Zatrzymana ręcznie z poziomu interfejsu graficznego"})
             .then(response => {
                 this.props.loadSessionFunction({name: "app", key: null})
             })
