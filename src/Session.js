@@ -13,7 +13,7 @@ class Session extends React.Component {
         buttonDownloadCSV: null,
         is_finished: true,
         name: '',
-        status_explanation: null,
+        termination_reason: null,
         time_interval: 30,
     }
     distillation_date;
@@ -63,10 +63,10 @@ class Session extends React.Component {
             .then(response => {
                 let name = response.data.name
                 let is_finished = response.data.is_finished
-                let status_explanation = response.data.status_explanation
+                let termination_reason = response.data.termination_reason
                 let time_interval = response.data.time_interval
                 if (is_finished) {
-                    status_explanation = response.data.status_explanation
+                    termination_reason = response.data.termination_reason
                 }
                 setInterval(() => {
                     console.log("Refreshing component!")
@@ -75,7 +75,7 @@ class Session extends React.Component {
                 this.setState({
                     name: name,
                     is_finished: is_finished,
-                    status_explanation: status_explanation,
+                    termination_reason: termination_reason,
                     time_interval: time_interval,
                 })
             })
@@ -91,7 +91,7 @@ class Session extends React.Component {
                                 <img src={logo} className="App-logo" alt="logo"
                                      onClick={() => this.props.loadSessionFunction({name: "app", key: null})}/>
                             </div>
-                            <div className={"col-lg-6 h5"}>
+                            <div className={"col-lg-6 text-right h5"}>
                                 <span>
                                     Nazwa sesji:<br/>
                                     <strong>{this.state.name}</strong>
@@ -101,8 +101,8 @@ class Session extends React.Component {
                                     <strong>
                                         {this.state.is_finished ? "Skończona" : "Trwająca"}
                                     </strong>
-                                </span>
-                                <span><strong>{this.state.status_explanation}</strong></span>
+                                </span><br/>
+                                <span><strong>{this.state.termination_reason}</strong></span>
                             </div>
                             <div className={"col-lg-3"}>
                                 {this.state.is_finished ? null :
